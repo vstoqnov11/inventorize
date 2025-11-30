@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/form.css">
+</head>
+<body>
+<div class="top-bar">
+    <h1 class="logo">
+        <a href="/" class="logo-link">
+            <img src="/images/only-logo.png" alt="Inventorize Logo" class="logo-icon">
+            <span class="logo-text">inventorize</span>
+        </a>
+    </h1>
+    <div class="btn-group">
+        <a href="/login" class="button">Login</a>
+    </div>
+</div>
+<div class="form-container" th:object="${registerRequest}">
+    <form class="form-card" th:method="post" th:action="@{/register}">
+        <h2>Register</h2>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input th:field="*{username}" type="text" id="username" name="username" required placeholder="Enter your username">
+            <p class="alert-warning" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Error message</p>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input th:field="*{email}" type="email" id="email" name="email" required placeholder="Enter your email">
+            <p class="alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error message</p>
+        </div>
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input th:field="*{firstName}" type="text" id="firstName" name="firstName" required placeholder="Enter your first name">
+            <p class="alert-warning" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Error message</p>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input th:field="*{lastName}" type="text" id="lastName" name="lastName" required placeholder="Enter your last name">
+            <p class="alert-warning" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Error message</p>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input th:field="*{password}" type="password" id="password" name="password" required placeholder="Enter your password">
+            <p class="alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error message</p>
+        </div>
+        <button type="submit" class="submit-btn button">Register</button>
+        <p class="register-link">Already have an account? <a href="login.html">Login here</a></p>
+    </form>
+</div>
+<footer class="copyright">
+    <p>© 2025 My-Inventory. All rights reserved.</p>
+</footer>
+</body>
+</html>
+

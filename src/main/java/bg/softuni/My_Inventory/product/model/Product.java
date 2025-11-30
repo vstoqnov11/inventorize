@@ -1,12 +1,10 @@
 package bg.softuni.My_Inventory.product.model;
 
 import bg.softuni.My_Inventory.business.model.Business;
-import bg.softuni.My_Inventory.transaction.model.Transaction;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Builder
@@ -29,7 +27,8 @@ public class Product {
     private String brand;
 
     @Column(nullable = false)
-    private BusinessCategory category;
+    @Enumerated(EnumType.STRING)
+    private ProductCategory category;
 
     @Column
     private int quantity;
@@ -38,31 +37,17 @@ public class Product {
     private int minStockThreshold;
 
     @Column
-    private String unit;
+    private int maxStockThreshold;
 
     @Column
-    private double purchasePrice;
-
-    @Column
-    private double sellingPrice;
-
-    @Column
-    private String supplier;
+    @Enumerated(EnumType.STRING)
+    private ProductUnit unit;
 
     @Column
     private LocalDateTime arrivalDate;
 
     @Column
     private LocalDateTime expiryDate;
-
-    @Column
-    private String batchNumber;
-
-    @Column
-    private LocalDateTime createdOn;
-
-    @Column
-    private LocalDateTime updatedOn;
 
     @ManyToOne
     @JoinColumn(name = "business_id")

@@ -1,0 +1,96 @@
+.sidebar {
+    width: 250px;
+    min-width: 250px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+}
+.sidebar-top {
+    flex: 1;
+}
+.sidebar-user-info {
+    padding: 15px 10px;
+    margin-bottom: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #337ecc;
+}
+.sidebar-user-name {
+    color: #3d3b4f;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 5px 0;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.sidebar-user-role {
+    color: #337ecc;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.sidebar-bottom {
+    margin-top: auto;
+}
+.sidebar-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.sidebar-section.bottom-section {
+    gap: 8px;
+}
+.sidebar-section.middle-section {
+    margin-bottom: 24px;
+}
+.sidebar-divider {
+    height: 1px;
+    background: #e0e0e0;
+    margin: 20px 0;
+}
+.sidebar-btn {
+    padding: 10px 26px;
+    font-size: 1rem;
+    border: none;
+    background: #337ecc;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.18s;
+    font-weight: 600;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    text-decoration: none;
+}
+.dashboard-text {
+    color: #337ecc;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 10px 26px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+.sidebar-section-label {
+    color: #666;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 8px 26px;
+    text-align: center;
+    margin-bottom: 8px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.sidebar-btn:hover {
+    background: #22588d;
+}

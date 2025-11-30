@@ -1,44 +1,35 @@
 package bg.softuni.My_Inventory.business.model;
 
-import bg.softuni.My_Inventory.product.model.BusinessCategory;
+import bg.softuni.My_Inventory.product.model.ProductCategory;
 
 public enum BusinessType {
 
-    RESTAURANT("Restaurant", BusinessCategory.FOOD),
-    CAFE("Cafe", BusinessCategory.FOOD),
-    BAKERY("Bakery", BusinessCategory.FOOD),
-    SUPERMARKET("Supermarket", BusinessCategory.FOOD),
+    RESTAURANT("Restaurant"),
+    CAFE("Cafe"),
+    BAKERY("Bakery"),
+    SUPERMARKET("Supermarket"),
 
-    PHARMACY("Pharmacy", BusinessCategory.MEDICINE),
-    HOSPITAL("Hospital", BusinessCategory.MEDICINE),
+    RETAIL("Retail"),
+    BOOKSTORE("Bookstore"),
+    ELECTRONICS("Electronics"),
+    CLOTHING("Clothing"),
+    FURNITURE("Furniture"),
 
-    RETAIL("Retail", BusinessCategory.RETAIL),
-    BOOKSTORE("Bookstore", BusinessCategory.RETAIL),
-    ELECTRONICS("Electronics", BusinessCategory.RETAIL),
-    CLOTHING("Clothing", BusinessCategory.RETAIL),
-    FURNITURE("Furniture", BusinessCategory.RETAIL),
+    CINEMA("Cinema"),
 
-    CINEMA("Cinema", BusinessCategory.ENTERTAINMENT),
-
-    BARBERSHOP("Barbershop", BusinessCategory.SERVICES),
-    GAS_STATION("Gas Station", BusinessCategory.SERVICES),
-    PET_STORE("Pet Store", BusinessCategory.SERVICES),
-    AUTO_SERVICE("Auto Service", BusinessCategory.SERVICES),
-    BEAUTY_SALON("Beauty Salon", BusinessCategory.SERVICES);
+    BARBERSHOP("Barbershop"),
+    GAS_STATION("Gas Station"),
+    PET_STORE("Pet Store"),
+    AUTO_SERVICE("Auto Service"),
+    BEAUTY_SALON("Beauty Salon");
 
     private final String displayName;
-    private final BusinessCategory category;
 
-    BusinessType(String displayName, BusinessCategory category) {
+    BusinessType(String displayName) {
         this.displayName = displayName;
-        this.category = category;
     }
 
     public String getDisplayName() {
         return displayName;
-    }
-
-    public BusinessCategory getCategory () {
-        return category;
     }
 }

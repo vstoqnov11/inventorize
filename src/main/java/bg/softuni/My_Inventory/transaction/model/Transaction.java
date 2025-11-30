@@ -41,8 +41,4 @@ public class Transaction {
     @ManyToOne(optional = false)
     @JoinColumn(name = "performed_by")
     private User performedBy;
-
-    @Column
-    private String referenceNumber;
-
 }

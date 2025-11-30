@@ -1,12 +1,10 @@
 package bg.softuni.My_Inventory.user.model;
 
 import bg.softuni.My_Inventory.business.model.Business;
-import bg.softuni.My_Inventory.transaction.model.Transaction;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Builder
@@ -37,12 +35,12 @@ public class User {
     @Column(unique = true)
     private String email;
 
+    @Column
+    private String phoneNumber;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole role;
-
-    @Column(nullable = false)
-    private boolean active;
 
     @Column
     private LocalDateTime createdOn;
@@ -50,10 +48,7 @@ public class User {
     @Column
     private LocalDateTime updatedOn;
 
-    @Column
-    private LocalDateTime lastLogin;
-
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "business_id")
     private Business business;
 }

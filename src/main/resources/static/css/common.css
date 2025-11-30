@@ -1,0 +1,130 @@
+@font-face {
+    font-family: 'Orbitron';
+    src: url('/fonts/Orbitron-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body:not(.homepage-body) {
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: url('/images/background.png') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+}
+.top-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 40px 0 40px;
+    box-sizing: border-box;
+}
+.logo {
+    color: #fff;
+    font-size: 1.8rem;
+    letter-spacing: 0.5px;
+    margin: 0;
+    background: none;
+    font-weight: 500;
+    text-transform: lowercase;
+    font-family: 'Orbitron', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+.homepage-body .logo {
+    color: #fff;
+}
+.logo-link {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.logo-link:hover {
+    opacity: 0.9;
+}
+.logo-icon {
+    height: 44px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+}
+.logo-text {
+    font-size: 2.1rem;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    text-transform: lowercase;
+    font-family: 'Orbitron', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+.btn-group {
+    display: flex;
+    gap: 14px;
+}
+button {
+    padding: 10px 26px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    background: #337ecc;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.18s;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+button:hover {
+    background: #22588d;
+}
+.button {
+    padding: 10px 26px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    background: #337ecc;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.18s;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    text-decoration: none;
+}
+.button:hover {
+    background: #22588d;
+}
+.copyright {
+    text-align: center;
+    padding: 20px;
+    color: #fff;
+    margin-top: auto;
+}
+.copyright p {
+    margin: 0;
+    font-size: 1.1rem;
+}
+.alert-warning {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    background: linear-gradient(to left, #f88e8e, #f56767, #f53b3b);
+    background-size: 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+p.alert-warning {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    background: linear-gradient(to left, #f88e8e, #f56767, #f53b3b);
+    background-size: 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 5px 0 0;
+}
+

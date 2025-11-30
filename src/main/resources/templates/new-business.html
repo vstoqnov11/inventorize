@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Business Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/form.css">
+</head>
+<body>
+<div class="top-bar">
+    <h1 class="logo">
+        <span class="logo-link">inventorize</span>
+    </h1>
+    <div class="btn-group">
+        <a href='/logout' class="button">Logout</a>
+    </div>
+</div>
+<div class="form-container">
+    <form class="form-card" th:method="post" th:action="@{/businesses/new}" th:object="${newBusinessRequest}">
+        <h2>Create Business</h2>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input th:field="*{name}" type="text" id="name" name="name" required placeholder="Enter business name">
+        </div>
+        <div class="form-group">
+            <label for="type">Type</label>
+            <select id="type"  name="type" required class="form-select" th:field="*{type}">
+                <optgroup label="Food & Hospitality">
+                    <option value="RESTAURANT">Restaurant</option>
+                    <option value="CAFE">Cafe</option>
+                    <option value="BAKERY">Bakery</option>
+                    <option value="SUPERMARKET">Supermarket</option>
+                </optgroup>
+                <optgroup label="Retail & Stores">
+                    <option value="RETAIL">Retail</option>
+                    <option value="BOOKSTORE">Bookstore</option>
+                    <option value="ELECTRONICS">Electronics</option>
+                    <option value="CLOTHING">Clothing</option>
+                    <option value="FURNITURE">Furniture</option>
+                    <option value="PET_STORE">Pet Store</option>
+                </optgroup>
+                <optgroup label="Entertainment">
+                    <option value="CINEMA">Cinema</option>
+                </optgroup>
+                <optgroup label="Services">
+                    <option value="BARBERSHOP">Barbershop</option>
+                    <option value="GAS_STATION">Gas Station</option>
+                    <option value="AUTO_SERVICE">Auto Service</option>
+                    <option value="BEAUTY_SALON">Beauty Salon</option>
+                </optgroup>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input th:field="*{address}" type="text" id="address" name="address" required placeholder="Enter business address">
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber">Phone Number</label>
+            <input th:field="*{phoneNumber}" type="tel" id="phoneNumber" name="phoneNumber" required placeholder="Enter phone number">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input th:field="*{email}" type="email" id="email" name="email" required placeholder="Enter business email">
+        </div>
+        <button type="submit" class="submit-btn button">Save</button>
+    </form>
+</div>
+<footer class="copyright">
+    <p>© 2025 inventorize. All rights reserved.</p>
+</footer>
+</body>
+</html>
+

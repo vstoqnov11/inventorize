@@ -3,10 +3,17 @@ package bg.softuni.My_Inventory.business.model;
 import bg.softuni.My_Inventory.product.model.Product;
 import bg.softuni.My_Inventory.user.model.User;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
 
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+
 
 @Builder
 @Getter
@@ -25,6 +32,7 @@ public class Business {
     private String name;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private BusinessType businessType;
 
     @Column
@@ -37,10 +45,13 @@ public class Business {
     private String email;
 
     @Column
-    private String websiteUrl;
+    private LocalDateTime createdOn;
+
+    @Column
+    private LocalDateTime updatedOn;
 
     @OneToMany(mappedBy = "business")
-    private List<User> users;
+    private List<User> employees;
 
     @OneToMany(mappedBy = "business")
     private List<Product> products;

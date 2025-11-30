@@ -1,6 +1,6 @@
 package bg.softuni.My_Inventory.transaction.repository;
 
-import org.hibernate.Transaction;
+import bg.softuni.My_Inventory.transaction.model.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

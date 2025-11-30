@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/form.css">
+</head>
+<body>
+<div class="top-bar">
+    <h1 class="logo">
+        <a href="/" class="logo-link">
+            <img src="/images/only-logo.png" alt="Inventorize Logo" class="logo-icon">
+            <span class="logo-text">inventorize</span>
+        </a>
+    </h1>
+    <div class="btn-group">
+        <a href="/register" class="button">Register</a>
+    </div>
+</div>
+<div class="form-container">
+    <form class="form-card" th:method="post" th:action="@{/login}" th:object="${loginRequest}">
+        <h2>Login</h2>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input th:field="*{username}" type="text" id="username" name="username" required placeholder="Enter your username">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input th:field="*{password}" type="password" id="password" name="password" required placeholder="Enter your password">
+        </div>
+        <button type="submit" class="submit-btn button">Login</button>
+        <p class="register-link">Don't have an account? <a href="/register">Register here</a></p>
+    </form>
+</div>
+<footer class="copyright">
+    <p>© 2025 My-Inventory. All rights reserved.</p>
+</footer>
+</body>
+</html>

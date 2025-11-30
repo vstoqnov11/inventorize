@@ -1,0 +1,120 @@
+.homepage-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: url('/images/index-page.png') no-repeat center center fixed;
+    background-size: cover;
+}
+.homepage-body .top-bar {
+    background: transparent;
+    padding: 30px 40px 0 40px;
+    margin: 0;
+}
+.main-layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.content-area {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
+    padding: 60px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.content-display {
+    width: 100%;
+    max-width: 700px;
+}
+.user-info-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 50px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border: 1px solid #f0f0f0;
+}
+.user-avatar {
+    margin-bottom: 30px;
+}
+.avatar-placeholder {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #337ecc;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin: 0 auto;
+    box-shadow: 0 4px 12px rgba(51, 126, 204, 0.3);
+}
+.user-name {
+    color: #3d3b4f;
+    font-size: 2rem;
+    margin: 0 0 12px 0;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+.first-name, .last-name {
+    display: inline-block;
+}
+.user-role {
+    color: #337ecc;
+    font-size: 1.1rem;
+    margin: 0 0 40px 0;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.user-email {
+    color: #666;
+    font-size: 1rem;
+    margin: 0 0 30px 0;
+}
+.user-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+    transition: box-shadow 0.2s;
+}
+.detail-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.detail-label {
+    color: #666;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+.detail-value {
+    color: #3d3b4f;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+

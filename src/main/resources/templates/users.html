@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users - inventorize</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="common.css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" href="nav-sidebar.css" th:href="@{/css/nav-sidebar.css}">
+    <link rel="stylesheet" type="text/css" href="home-common.css" th:href="@{/css/home-common.css}">
+    <link rel="stylesheet" type="text/css" href="users.css" th:href="@{/css/users.css}">
+</head>
+<body class="homepage-body">
+<div class="top-bar">
+    <h1 class="logo">
+        <a th:href="@{/home}" class="logo-link">
+            <img src="/images/only-logo.png" alt="Inventorize Logo" class="logo-icon" th:src="@{/images/only-logo.png}">
+            <span class="logo-text">inventorize</span>
+        </a>
+    </h1>
+    <div class="btn-group">
+        <a th:href="@{/logout}" class="button">Logout</a>
+    </div>
+</div>
+<div class="main-layout">
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-name" >John Doe</div>
+                <div class="sidebar-user-role" >Admin</div>
+            </div>
+            <div class="sidebar-section top-section">
+                <a class="sidebar-btn rounded-btn home-btn" href="/home">Home</a>
+            </div>
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-section middle-section">
+                <div class="sidebar-section-label">Business</div>
+                <a class="sidebar-btn rounded-btn" href="/business/products">Products</a>
+                <a class="sidebar-btn rounded-btn" href="/business/employees">Employees</a>
+            </div>
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-section middle-section">
+                <div class="sidebar-section-label">Profile settings</div>
+                <a class="sidebar-btn rounded-btn" href="/profile/edit">Edit Profile</a>
+            </div>
+        </div>
+        <div class="sidebar-bottom">
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-section bottom-section">
+                <div class="sidebar-section-label" th:if="${isAdmin}">Admin</div>
+                <a class="sidebar-btn rounded-btn" href="/businesses">Businesses</a>
+                <a class="sidebar-btn rounded-btn" href="/users">Users</a>
+            </div>
+        </div>
+    </aside>
+    <main class="content-area">
+        <div class="users-container">
+            <div class="users-header">
+                <h2 class="users-title">Users</h2>
+            </div>
+            <div class="users-grid">
+                <div class="grid-header">
+                    <div class="grid-cell header-cell">ID</div>
+                    <div class="grid-cell header-cell">First Name</div>
+                    <div class="grid-cell header-cell">Last Name</div>
+                    <div class="grid-cell header-cell">Email</div>
+                    <div class="grid-cell header-cell">Phone Number</div>
+                    <div class="grid-cell header-cell">Role</div>
+                    <div class="grid-cell header-cell">Business</div>
+                </div>
+                <div class="grid-row" th:each="user : ${users}">
+                    <div class="grid-cell" th:text="${user.id}">1</div>
+                    <div class="grid-cell" th:text="${user.firstName}">John</div>
+                    <div class="grid-cell" th:text="${user.lastName}">Doe</div>
+                    <div class="grid-cell" th:text="${user.email}">john.doe@example.com</div>
+                    <div class="grid-cell" th:text="${user.phoneNumber}">+1234567890</div>
+                    <div class="grid-cell" th:text="${user.role.name()}">Admin</div>
+                    <div class="grid-cell" th:text="${user.business.name}">Business Name</div>
+                </div>
+            </div>
+            <div class="pagination" th:if="${totalPages > 1}">
+                <a th:href="@{/users(page=${page} - 1)}"
+                   class="pagination-btn"
+                   th:classappend="${page == 1} ? 'disabled'"
+                   th:if="${page > 1}">Previous</a>
+                <span th:each="pageNum : ${#numbers.sequence(1, totalPages)}">
+                        <a th:href="@{/users(page=${pageNum})}"
+                           class="pagination-number"
+                           th:classappend="${pageNum == page} ? 'active'"
+                           th:text="${pageNum}">1</a>
+                    </span>
+                <a th:href="@{/users(page=${page} + 1)}"
+                   class="pagination-btn"
+                   th:classappend="${page == totalPages} ? 'disabled'"
+                   th:if="${page < totalPages}">Next</a>
+            </div>
+        </div>
+    </main>
+</div>
+<footer class="copyright">
+    <p>© 2025 inventorize. All rights reserved.</p>
+</footer>
+</body>
+</html>
+
