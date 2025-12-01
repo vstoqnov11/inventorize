@@ -54,18 +54,6 @@ public class BusinessController {
         return mav;
     }
 
-    @GetMapping("/{id}/products")
-    public ModelAndView getBusinessPage(@AuthenticationPrincipal UserData userData, @PathVariable UUID id) {
-
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("products");
-        mav.addObject("user", userService.getById(userData.getId()));
-        mav.addObject("business", businessService.getById(id));
-       // mav.addObject("products", businessService.getAllProducts(id));
-
-        return mav;
-    }
-
     @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
     @GetMapping("/new")
     public ModelAndView getCreateBusinessPage(@AuthenticationPrincipal UserData userData) {

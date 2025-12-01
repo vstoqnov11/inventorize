@@ -76,7 +76,7 @@
                     <div class="grid-cell header-cell">Unit</div>
                     <div class="grid-cell header-cell">Quantity</div>
                 </div>
-                <label class="grid-row" th:each="product, iterStat : ${products}">
+                <label class="grid-row" th:each="product : ${products}">
                     <input type="radio" name="selectedProduct" class="row-radio" th:value="${product.id}" th:checked="${selectedProductId != null and selectedProductId == product.id}">
                     <div class="grid-cell row-number"></div>
                     <div class="grid-cell">
