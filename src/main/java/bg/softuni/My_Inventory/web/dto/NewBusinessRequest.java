@@ -16,19 +16,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class NewBusinessRequest {
 
-    @Size(min = 4, max = 30)
+    @Size(min = 4, max = 30, message = "Name should be between 4 and 30 characters")
     @NotBlank
     private String name;
 
     @NotNull
     private BusinessType type;
 
-    @Size(min = 5, max = 50)
+    @Size(min = 5, max = 50, message = "address should be between 5 and 50 characters")
     private String address;
 
-    @Size(min = 10, max = 14)
+    @Size(min = 10, max = 10, message = "Name should be 10 characters")
     private String phoneNumber;
 
-    @Email
+    @Email(message = "Incorrect email address")
+    @NotBlank
     private String email;
 }

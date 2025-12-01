@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Employees</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/nav-sidebar.css">
+    <link rel="stylesheet" type="text/css" href="/css/home-common.css">
+    <link rel="stylesheet" type="text/css" href="/css/grid-common.css">
+</head>
+<body class="homepage-body">
+<div class="top-bar">
+    <h1 class="logo">
+        <a href="/home" class="logo-link">
+            <img src="/images/only-logo.png" alt="Inventorize Logo" class="logo-icon">
+            <span class="logo-text">inventorize</span>
+        </a>
+    </h1>
+    <div class="btn-group">
+        <a th:href="@{/logout}" class="button">Logout</a>
+    </div>
+</div>
+<div class="main-layout">
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-name" th:text="${user.firstName + ' ' + user.lastName}">John Doe</div>
+                <div class="sidebar-user-role" th:text="${user.role.displayName}">Admin</div>
+            </div>
+            <div class="sidebar-section top-section">
+                <a class="sidebar-btn rounded-btn home-btn" href="/home">Home</a>
+            </div>
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-section middle-section">
+                <div class="sidebar-section-label">Business</div>
+                <a class="sidebar-btn rounded-btn" th:href="@{'/businesses/' + ${business.id} + '/products'}">Products</a>
+                <a class="sidebar-btn rounded-btn" th:href="@{'/businesses/' + ${business.id} + '/employees'}" sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')">Employees</a>
+            </div>
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-section middle-section">
+                <div class="sidebar-section-label">Profile settings</div>
+                <a class="sidebar-btn rounded-btn" th:href="@{'/users/' + ${user.id} + '/profile'}">Edit Profile</a>
+            </div>
+        </div>
+        <div class="sidebar-bottom">
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-section bottom-section" sec:authorize="hasRole('ROLE_ADMIN')">
+                <div class="sidebar-section-label">Admin</div>
+                <a class="sidebar-btn rounded-btn" href="/businesses">Businesses</a>
+                <a class="sidebar-btn rounded-btn" href="/users">Users</a>
+            </div>
+        </div>
+    </aside>
+    <main class="content-area">
+        <div class="products-container">
+            <div class="products-header">
+                <div class="header-buttons">
+                    <a th:href="@{/users/new}" class="add-btn">Add</a>
+                </div>
+                <h2 class="products-title">Employees</h2>
+            </div>
+            <div class="products-grid">
+                <div class="grid-header">
+                    <div class="grid-cell header-cell">#</div>
+                    <div class="grid-cell header-cell">First Name</div>
+                    <div class="grid-cell header-cell">Last Name</div>
+                    <div class="grid-cell header-cell">Email</div>
+                    <div class="grid-cell header-cell">Phone Number</div>
+                </div>
+                <div class="grid-row" th:each="employee : ${employees}">
+                    <div class="grid-cell row-number"></div>
+                    <div class="grid-cell">
+                        <span class="cell-text" th:text="${employee.firstName}">John</span>
+                    </div>
+                    <div class="grid-cell">
+                        <span class="cell-text" th:text="${employee.lastName}">Doe</span>
+                    </div>
+                    <div class="grid-cell">
+                        <span class="cell-text" th:text="${employee.email}">john.doe@example.com</span>
+                    </div>
+                    <div class="grid-cell">
+                        <span class="cell-text" th:text="${employee.phoneNumber}">+1234567890</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<footer class="copyright">
+    <p>© 2025 inventorize. All rights reserved.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,444 @@
+/* Common Grid and Pagination Styles */
+
+/* Content Area Override for Grid Pages */
+.content-area {
+    padding: 20px 30px !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Grid Container */
+.grid-container,
+.users-container,
+.businesses-container,
+.employees-container,
+.products-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    counter-reset: row-number;
+    box-sizing: border-box;
+}
+
+/* Grid Header Section - Common Structure */
+.grid-header-section,
+.users-header,
+.businesses-header,
+.employees-header,
+.products-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+/* Grid Title - Centered */
+.grid-title,
+.users-title,
+.businesses-title,
+.employees-title,
+.products-title {
+    color: #3d3b4f;
+    font-size: 2rem;
+    margin: 15px 0 0 0;
+    font-weight: 600;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Header Buttons Container */
+.header-buttons {
+    display: flex;
+    gap: 12px;
+    margin-right: auto;
+}
+
+/* Add Button - Common Style */
+.add-btn {
+    padding: 10px 24px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    background: #28a745;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.18s;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.add-btn:hover {
+    background: #218838;
+}
+
+/* Edit Button */
+.edit-btn {
+    padding: 10px 24px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    background: #337ecc;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.18s;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.edit-btn:hover {
+    background: #22588d;
+}
+
+.edit-btn.save-btn {
+    background: #28a745;
+}
+
+.edit-btn.save-btn:hover {
+    background: #218838;
+}
+
+/* Delete Button */
+.delete-btn {
+    padding: 10px 24px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    background: #dc3545;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.18s;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.delete-btn:hover {
+    background: #c82333;
+}
+
+.delete-btn:disabled,
+.edit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.delete-btn:disabled:hover,
+.edit-btn:disabled:hover {
+    background: #dc3545;
+}
+
+.edit-btn:disabled:hover {
+    background: #337ecc;
+}
+
+/* Grid Base Styles */
+.grid,
+.users-grid,
+.businesses-grid,
+.employees-grid,
+.products-grid {
+    width: 100%;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+    overflow-y: visible;
+    counter-reset: row-number;
+}
+
+/* Grid Header Row */
+.grid-header {
+    display: grid;
+    gap: 1px;
+    background: #e0e0e0;
+    border-radius: 8px 8px 0 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* Grid Data Row */
+.grid-row {
+    display: grid;
+    gap: 1px;
+    background: #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    transition: background 0.2s;
+    counter-increment: row-number;
+    position: relative;
+    cursor: pointer;
+}
+
+.grid-row:last-child {
+    border-radius: 0 0 8px 8px;
+}
+
+.grid-row:hover {
+    background: #d4e4f5;
+}
+
+.grid-row:hover .grid-cell {
+    background: #e8f4fd;
+}
+
+/* Row Radio Button (for products page) */
+.row-radio {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.grid-row:has(.row-radio:checked) {
+    background: #d0e4ff;
+}
+
+.grid-row:has(.row-radio:checked):hover {
+    background: #b8d5ff;
+}
+
+.grid-row:has(.row-radio:checked) .grid-cell {
+    background: #e3f2fd;
+}
+
+.grid-row:has(.row-radio:checked):hover .grid-cell {
+    background: #d0e4f7;
+}
+
+/* Grid Cells */
+.grid-cell {
+    background: #fff;
+    padding: 12px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    color: #3d3b4f;
+    min-height: 45px;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.header-cell {
+    background: #337ecc;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    justify-content: center;
+    text-align: center;
+    padding: 14px 10px;
+    position: sticky;
+    top: 0;
+}
+
+/* Row Number */
+.row-number {
+    justify-content: center;
+    text-align: center;
+}
+
+.row-number::before {
+    content: counter(row-number);
+}
+
+/* Cell Text and Input */
+.cell-text {
+    width: 100%;
+    text-align: center;
+}
+
+.cell-input {
+    width: 100%;
+    padding: 8px;
+    font-size: 0.9rem;
+    border: 2px solid #337ecc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #3d3b4f;
+}
+
+.cell-input:focus {
+    outline: none;
+    border-color: #22588d;
+}
+
+/* Quantity Cell */
+.quantity-cell {
+    font-weight: 600;
+    color: #337ecc;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Select Dropdowns */
+.unit-select,
+.category-select {
+    width: 100%;
+    padding: 8px;
+    font-size: 0.9rem;
+    border: 2px solid #337ecc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #3d3b4f;
+    cursor: pointer;
+    transition: border-color 0.18s;
+    font-family: Arial, Helvetica, sans-serif;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    padding-right: 28px;
+    box-sizing: border-box;
+    pointer-events: auto;
+    position: relative;
+    z-index: 1;
+}
+
+.unit-select:focus,
+.category-select:focus {
+    outline: none;
+    border-color: #22588d;
+}
+
+.unit-select:hover,
+.category-select:hover {
+    border-color: #22588d;
+}
+
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.pagination-number,
+.pagination-btn {
+    padding: 10px 16px;
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    color: #3d3b4f;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    min-width: 40px;
+    text-align: center;
+    display: inline-block;
+}
+
+.pagination-number:hover,
+.pagination-btn:hover:not(.disabled) {
+    background: #337ecc;
+    color: #fff;
+    border-color: #337ecc;
+}
+
+.pagination-number.active {
+    background: #337ecc;
+    color: #fff;
+    border-color: #337ecc;
+}
+
+.pagination-btn.disabled,
+.pagination-btn.disabled:hover {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #f5f5f5;
+    color: #999;
+    border-color: #e0e0e0;
+}
+
+/* Grid Column Layouts */
+
+/* Products Grid (11 columns) */
+.products-grid .grid-header,
+.products-grid .grid-row {
+    grid-template-columns: 50px 1.5fr 1.2fr 1.6fr 0.8fr 0.8fr 1.2fr 1.2fr 1fr 1.2fr 0.8fr;
+}
+
+/* Employees Grid (5 columns) - Full width */
+.products-container .products-grid {
+    width: 100%;
+    max-width: 100%;
+}
+
+.products-container .products-grid .grid-header,
+.products-container .products-grid .grid-row {
+    grid-template-columns: 50px 1.5fr 1.5fr 2fr 1.5fr;
+    width: 100%;
+}
+
+/* Users Grid (7 columns) */
+.users-grid .grid-header,
+.users-grid .grid-row {
+    grid-template-columns: 250px 1.5fr 1.5fr 2fr 1.5fr 1.2fr 1.8fr;
+}
+
+/* Businesses Grid (5 columns) */
+.businesses-grid .grid-header,
+.businesses-grid .grid-row {
+    grid-template-columns: 2fr 1.5fr 2.5fr 1.5fr 2fr;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1400px) {
+    .grid-cell {
+        font-size: 0.85rem;
+        padding: 10px 8px;
+    }
+
+    .header-cell {
+        font-size: 0.8rem;
+        padding: 12px 8px;
+    }
+
+    .pagination-number,
+    .pagination-btn {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+        min-width: 36px;
+    }
+
+    /* Products Grid Responsive */
+    .products-grid .grid-header,
+    .products-grid .grid-row {
+        grid-template-columns: 40px 1.2fr 1fr 1.4fr 0.7fr 0.7fr 1fr 1fr 0.9fr 1fr 0.7fr;
+    }
+
+    /* Employees Grid Responsive */
+    .products-container .products-grid .grid-header,
+    .products-container .products-grid .grid-row {
+        grid-template-columns: 40px 1.3fr 1.3fr 1.8fr 1.3fr;
+    }
+
+    /* Users Grid Responsive */
+    .users-grid .grid-header,
+    .users-grid .grid-row {
+        grid-template-columns: 200px 1.2fr 1.2fr 1.8fr 1.2fr 1fr 1.5fr;
+    }
+
+    /* Businesses Grid Responsive */
+    .businesses-grid .grid-header,
+    .businesses-grid .grid-row {
+        grid-template-columns: 1.8fr 1.3fr 2.3fr 1.3fr 1.8fr;
+    }
+}
