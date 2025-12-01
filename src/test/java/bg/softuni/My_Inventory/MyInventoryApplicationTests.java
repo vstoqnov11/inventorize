@@ -1,4 +1,4 @@
-package bg.softuni.My_Inventory;
+package bg.softuni.inventorize;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
