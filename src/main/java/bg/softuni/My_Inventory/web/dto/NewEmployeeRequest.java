@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequest {
+public class NewEmployeeRequest {
 
     @Size(min = 5, max = 16, message = "Username should be between 5 and 16 characters")
     @NotBlank
@@ -22,7 +22,7 @@ public class RegisterRequest {
     @NotBlank
     private String password;
 
-    @Size(min = 3, max = 20, message = "First name should be between 3 and 20 characters")
+    @Size(min = 3, max = 20, message = "First name should be between 3 and 3 characters")
     @NotBlank
     private String firstName;
 
@@ -34,4 +34,7 @@ public class RegisterRequest {
     @NotBlank
     private String email;
 
+    @Size(min = 10, max = 10, message = "Phone number should be 10 digits")
+    @NotBlank
+    private String phoneNumber;
 }

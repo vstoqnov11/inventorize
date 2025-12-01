@@ -6,6 +6,7 @@ import bg.softuni.My_Inventory.user.model.User;
 import bg.softuni.My_Inventory.user.model.UserRole;
 import bg.softuni.My_Inventory.user.repository.UserRepository;
 import bg.softuni.My_Inventory.web.dto.EditProfileRequest;
+import bg.softuni.My_Inventory.web.dto.NewEmployeeRequest;
 import bg.softuni.My_Inventory.web.dto.RegisterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -94,7 +95,7 @@ public class UserService implements UserDetailsService {
 
     public void updateProfile (EditProfileRequest editProfileRequest, UUID id) {
 
-        User user = userRepository.getById(id);
+        User user = getById(id);
 
         user.setFirstName(editProfileRequest.getFirstName());
         user.setLastName(editProfileRequest.getLastName());
@@ -109,5 +110,23 @@ public class UserService implements UserDetailsService {
 
         Pageable pageable = PageRequest.of(page, 10);
         return userRepository.findAllByBusinessId(id, pageable);
+    }
+
+    public void createEmployee (NewEmployeeRequest newEmployeeRequest, Business business) {
+
+        User user = User.builder()
+                .username(newEmployeeRequest.getUsername())
+                .password(passwordEncoder.encode(newEmployeeRequest.getPassword()))
+                .firstName(newEmployeeRequest.getFirstName())
+                .lastName(newEmployeeRequest.getLastName())
+                .email(newEmployeeRequest.getEmail())
+                .phoneNumber(newEmployeeRequest.getPhoneNumber())
+                .role(UserRole.EMPLOYEE)
+                .business(business)
+                .createdOn(LocalDateTime.now())
+                .updatedOn(LocalDateTime.now())
+                .build();
+
+        userRepository.save(user);
     }
 }

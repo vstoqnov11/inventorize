@@ -33,7 +33,7 @@
             <div class="sidebar-section middle-section">
                 <div class="sidebar-section-label">Business</div>
                 <a class="sidebar-btn rounded-btn" th:href="@{'/businesses/' + ${business.id} + '/products'}">Products</a>
-                <a class="sidebar-btn rounded-btn" th:href="@{'/businesses/' + ${business.id} + '/employees'}">Employees</a>
+                <a class="sidebar-btn rounded-btn" th:href="@{'/businesses/' + ${business.id} + '/employees'}" sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')">Employees</a>
             </div>
             <div class="sidebar-divider"></div>
             <div class="sidebar-section middle-section">
@@ -73,7 +73,7 @@
                         <span class="detail-value" th:text="*{#temporals.format(updatedOn, 'dd MMM YYYY')}">Jan 01, 2025</span>
                     </div>
                 </div>
-                <div class="edit-button-container">
+                <div class="edit-button-container" sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')">
                     <a th:href="@{'/businesses/' + ${business.id} + '/edit'}" class="button edit-button">Edit</a>
             </div>
         </div>

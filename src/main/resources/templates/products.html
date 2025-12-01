@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/nav-sidebar.css">
+    <link rel="stylesheet" type="text/css" href="/css/home-common.css">
+    <link rel="stylesheet" type="text/css" href="/css/business.css">
+</head>
+<body class="homepage-body">
+<div class="top-bar">
+    <h1 class="logo">
+        <a href="/home" class="logo-link">
+            <img src="/images/only-logo.png" alt="Inventorize Logo" class="logo-icon">
+            <span class="logo-text">inventorize</span>
+        </a>
+    </h1>
+    <div class="btn-group">
+        <a th:href="@{/logout}" class="button">Logout</a>
+    </div>
+</div>
+<div class="main-layout">
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-name" th:text="${user.firstName + ' ' + user.lastName}">John Doe</div>
+                <div class="sidebar-user-role" th:text="${user.role.displayName}">Admin</div>
+            </div>
+            <div class="sidebar-section top-section">
+                <a class="sidebar-btn rounded-btn home-btn" href="/home">Home</a>
+            </div>
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-section middle-section">
+                <div class="sidebar-section-label">Business</div>
+                <a class="sidebar-btn rounded-btn" th:href="@{'/businesses/' + ${business.id} + '/products'}">Products</a>
+                <a class="sidebar-btn rounded-btn" th:href="@{'/businesses/' + ${business.id} + '/employees'}" sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')">Employees</a>
+            </div>
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-section middle-section">
+                <div class="sidebar-section-label">Profile settings</div>
+                <a class="sidebar-btn rounded-btn" th:href="@{'/users/' + ${user.id} + '/profile'}">Edit Profile</a>
+            </div>
+        </div>
+        <div class="sidebar-bottom">
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-section bottom-section" sec:authorize="hasRole('ROLE_ADMIN')">
+                <div class="sidebar-section-label">Admin</div>
+                <a class="sidebar-btn rounded-btn" href="/businesses">Businesses</a>
+                <a class="sidebar-btn rounded-btn" href="/users">Users</a>
+            </div>
+        </div>
+    </aside>
+    <main class="content-area">
+        <div class="products-container">
+            <div class="products-header">
+                <h2 class="products-title">Products</h2>
+                <div class="header-buttons">
+                    <button type="button" class="add-btn" id="addBtn">Add</button>
+                    <button type="button" class="edit-btn" id="editBtn">Edit</button>
+                    <button type="button" class="delete-btn" id="deleteBtn">Delete</button>
+                </div>
+            </div>
+            <div class="products-grid">
+                <div class="grid-header">
+                    <div class="grid-cell header-cell">#</div>
+                    <div class="grid-cell header-cell">Name</div>
+                    <div class="grid-cell header-cell">Brand</div>
+                    <div class="grid-cell header-cell">Category</div>
+                    <div class="grid-cell header-cell">Min Threshold</div>
+                    <div class="grid-cell header-cell">Max Threshold</div>
+                    <div class="grid-cell header-cell">Arrival Date</div>
+                    <div class="grid-cell header-cell">Expiry Date</div>
+                    <div class="grid-cell header-cell">Price</div>
+                    <div class="grid-cell header-cell">Unit</div>
+                    <div class="grid-cell header-cell">Quantity</div>
+                </div>
+                <label class="grid-row" th:each="product, iterStat : ${products}">
+                    <input type="radio" name="selectedProduct" class="row-radio" th:value="${product.id}" th:checked="${selectedProductId != null and selectedProductId == product.id}">
+                    <div class="grid-cell row-number"></div>
+                    <div class="grid-cell">
+                        <span class="cell-text" th:text="${product.name}">Product Name</span>
+                        <input type="text" class="cell-input" th:value="${product.name}" style="display: none;">
+                    </div>
+                    <div class="grid-cell">
+                        <span class="cell-text" th:text="${product.brand}">Brand</span>
+                        <input type="text" class="cell-input" th:value="${product.brand}" style="display: none;">
+                    </div>
+                    <div class="grid-cell">
+                        <span class="cell-text" th:text="${product.category}">Category</span>
+                        <select class="category-select cell-input" style="display: none;" th:data-category="${product.category}">
+                            <option th:each="category : ${T(bg.softuni.My_Inventory.product.model.ProductCategory).values()}"
+                                    th:value="${category.name()}"
+                                    th:text="${category.displayName}">
+                            </option>
+
+                        </select>
+                    </div>
+                    <div class="grid-cell">
+                        <span class="cell-text" th:text="${product.minThreshold}">10</span>
+                        <input type="number" class="cell-input" th:value="${product.minThreshold}" style="display: none;">
+                    </div>
+                    <div class="grid-cell">
+                        <span class="cell-text" th:text="${product.maxThreshold}">100</span>
+                        <input type="number" class="cell-input" th:value="${product.maxThreshold}" style="display: none;">
+                    </div>
+                    <div class="grid-cell">
+                        <span class="cell-text" th:text="${product.arrivalDate}">2025-01-15</span>
+                        <input type="date" class="cell-input" th:value="${product.arrivalDate}" style="display: none;">
+                    </div>
+                    <div class="grid-cell">
+                        <span class="cell-text" th:text="${product.expiryDate}">2025-12-31</span>
+                        <input type="date" class="cell-input" th:value="${product.expiryDate}" style="display: none;">
+                    </div>
+                    <div class="grid-cell">
+                        <span class="cell-text" th:text="'$' + ${product.price}">$29.99</span>
+                        <input type="text" class="cell-input" th:value="${product.price}" style="display: none;">
+                    </div>
+                    <div class="grid-cell">
+                        <span class="cell-text" th:text="${product.unit}">Piece</span>
+                        <option th:each="unit : ${T(bg.softuni.My_Inventory.product.model.ProductUnit).values()}"
+                                th:value="${unit.name()}"
+                                th:text="${unit.displayName}">
+                        </option>
+                    </div>
+                    <div class="grid-cell quantity-cell">
+                        <span class="cell-text" th:text="${product.quantity}">50</span>
+                        <input type="number" class="cell-input" th:value="${product.quantity}" style="display: none;">
+                    </div>
+                </label>
+            </div>
+        </div>
+    </main>
+</div>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Business.js loaded successfully');
+
+        const editBtn = document.getElementById('editBtn');
+        const deleteBtn = document.getElementById('deleteBtn');
+        const addBtn = document.getElementById('addBtn');
+
+        console.log('Buttons found:', { editBtn: !!editBtn, deleteBtn: !!deleteBtn, addBtn: !!addBtn });
+
+        if (!editBtn || !deleteBtn || !addBtn) {
+            console.error('One or more buttons not found:', { editBtn, deleteBtn, addBtn });
+            return;
+        }
+
+        let editMode = false;
+
+        editBtn.addEventListener('click', function() {
+            const selectedRow = document.querySelector('.row-radio:checked');
+            if (!selectedRow) {
+                alert('Please select a row to edit');
+                return;
+            }
+
+            const row = selectedRow.closest('.grid-row');
+            const isNewRow = row.classList.contains('new-row');
+
+            // Don't allow editing new rows - they should be saved via Add button
+            if (isNewRow) {
+                alert('Please save the new product first using the Save button');
+                return;
+            }
+
+            editMode = !editMode;
+
+            if (editMode) {
+                editBtn.textContent = 'Save';
+                editBtn.classList.add('save-btn');
+                // Initialize unit dropdown value
+                const unitSelect = row.querySelector('.unit-select');
+                if (unitSelect) {
+                    const unitText = unitSelect.previousElementSibling;
+                    if (unitText && unitText.classList.contains('cell-text')) {
+                        const unitValue = unitText.textContent.trim();
+                        // Try to find matching option
+                        for (let i = 0; i < unitSelect.options.length; i++) {
+                            if (unitSelect.options[i].text.trim() === unitValue ||
+                                unitSelect.options[i].value === unitValue.toUpperCase().replace(' ', '_')) {
+                                unitSelect.selectedIndex = i;
+                                break;
+                            }
+                        }
+                    }
+                    unitSelect.style.display = 'block';
+                }
+                // Initialize category dropdown value
+                const categorySelect = row.querySelector('.category-select');
+                if (categorySelect) {
+                    const categoryText = categorySelect.previousElementSibling;
+                    if (categoryText && categoryText.classList.contains('cell-text')) {
+                        const categoryValue = categoryText.textContent.trim();
+                        // Try to find matching option
+                        for (let i = 0; i < categorySelect.options.length; i++) {
+                            if (categorySelect.options[i].text.trim() === categoryValue ||
+                                categorySelect.options[i].value === categoryValue) {
+                                categorySelect.selectedIndex = i;
+                                break;
+                            }
+                        }
+                    }
+                    categorySelect.style.display = 'block';
+                }
+                // Show inputs and dropdowns, hide text
+                row.querySelectorAll('.cell-text').forEach(function(text) {
+                    text.style.display = 'none';
+                });
+                row.querySelectorAll('.cell-input').forEach(function(input) {
+                    input.style.display = 'block';
+                });
+            } else {
+                editBtn.textContent = 'Edit';
+                editBtn.classList.remove('save-btn');
+                // Update unit dropdown text value first
+                const unitSelect = row.querySelector('.unit-select');
+                if (unitSelect) {
+                    const unitText = unitSelect.previousElementSibling;
+                    if (unitText && unitText.classList.contains('cell-text')) {
+                        const selectedOption = unitSelect.options[unitSelect.selectedIndex];
+                        unitText.textContent = selectedOption ? selectedOption.text : unitSelect.value;
+                    }
+                    unitSelect.style.display = 'none';
+                }
+                // Update category dropdown text value
+                const categorySelect = row.querySelector('.category-select');
+                if (categorySelect) {
+                    const categoryText = categorySelect.previousElementSibling;
+                    if (categoryText && categoryText.classList.contains('cell-text')) {
+                        const selectedOption = categorySelect.options[categorySelect.selectedIndex];
+                        categoryText.textContent = selectedOption ? selectedOption.text : categorySelect.value;
+                    }
+                    categorySelect.style.display = 'none';
+                }
+                // Hide inputs and dropdowns, show text
+                row.querySelectorAll('.cell-input').forEach(function(input) {
+                    input.style.display = 'none';
+                    // Update text value
+                    if (input.type !== 'date' && input.tagName !== 'SELECT') {
+                        const text = input.previousElementSibling;
+                        if (text && text.classList.contains('cell-text')) {
+                            text.textContent = input.value;
+                        }
+                    } else if (input.type === 'date') {
+                        const text = input.previousElementSibling;
+                        if (text && text.classList.contains('cell-text')) {
+                            text.textContent = input.value || '-';
+                        }
+                    }
+                });
+                row.querySelectorAll('.cell-text').forEach(function(text) {
+                    text.style.display = 'inline';
+                });
+            }
+        });
+
+        // Exit edit mode when another row is selected
+        document.querySelectorAll('.row-radio').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                if (editMode) {
+                    editMode = false;
+                    editBtn.textContent = 'Edit';
+                    editBtn.classList.remove('save-btn');
+
+                    // Reset all rows
+                    document.querySelectorAll('.grid-row').forEach(function(row) {
+                        row.querySelectorAll('.cell-input').forEach(function(input) {
+                            input.style.display = 'none';
+                        });
+                        row.querySelectorAll('.cell-text').forEach(function(text) {
+                            text.style.display = 'inline';
+                        });
+                        const unitSelect = row.querySelector('.unit-select');
+                        if (unitSelect) {
+                            unitSelect.style.display = 'none';
+                        }
+                        const categorySelect = row.querySelector('.category-select');
+                        if (categorySelect) {
+                            categorySelect.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        });
+
+        // Delete button functionality
+        if (deleteBtn) {
+            deleteBtn.addEventListener('click', function() {
+                const selectedRow = document.querySelector('.row-radio:checked');
+                if (!selectedRow) {
+                    alert('Please select a row to delete');
+                    return;
+                }
+                if (confirm('Are you sure you want to delete this product?')) {
+                    // Delete functionality would go here
+                    // For now, just show an alert
+                    alert('Delete functionality to be implemented');
+                }
+            });
+        }
+
+        // Add button functionality - create new row
+        const productsGrid = document.querySelector('.products-grid');
+        if (!productsGrid) {
+            console.error('Products grid not found');
+            return;
+        }
+
+        let newRowCounter = 1000; // Start with high number to avoid conflicts
+        let currentNewRow = null; // Track the current new row being added
+
+        if (addBtn) {
+            addBtn.addEventListener('click', function() {
+                // If button says "Save", save the current new row
+                if (addBtn.textContent === 'Save' && currentNewRow) {
+                    const selectedRadio = currentNewRow.querySelector('.row-radio');
+                    if (selectedRadio) {
+                        saveNewRow(currentNewRow, selectedRadio);
+                    }
+                    return;
+                }
+
+                // Otherwise, create a new row (button says "Add")
+                // Reset any previous new row state
+                if (currentNewRow) {
+                    currentNewRow.remove();
+                }
+
+                // Create new row
+                const newRow = document.createElement('label');
+                newRow.className = 'grid-row new-row';
+                currentNewRow = newRow; // Store reference to current new row
+
+                const rowId = 'new-row-' + (newRowCounter++);
+                const radioValue = 'new-' + newRowCounter;
+
+                newRow.innerHTML = `
+                        <input type="radio" name="selectedProduct" class="row-radio" value="${radioValue}" id="${rowId}">
+                        <div class="grid-cell row-number"></div>
+                        <div class="grid-cell">
+                            <span class="cell-text" style="display: none;"></span>
+                            <input type="text" class="cell-input" placeholder="Enter product name" value="" style="display: block;">
+                        </div>
+                        <div class="grid-cell">
+                            <span class="cell-text" style="display: none;"></span>
+                            <input type="text" class="cell-input" placeholder="Enter brand" value="" style="display: block;">
+                        </div>
+                        <div class="grid-cell">
+                            <span class="cell-text" style="display: none;"></span>
+                            <select class="category-select cell-input" style="display: block;">
+                                <option value="">Select Category</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Food & Beverages">Food & Beverages</option>
+                                <option value="Clothing">Clothing</option>
+                                <option value="Furniture">Furniture</option>
+                                <option value="Health & Beauty">Health & Beauty</option>
+                                <option value="Sports & Outdoors">Sports & Outdoors</option>
+                                <option value="Books & Media">Books & Media</option>
+                                <option value="Automotive">Automotive</option>
+                                <option value="Tools & Hardware">Tools & Hardware</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="grid-cell">
+                            <span class="cell-text" style="display: none;"></span>
+                            <input type="number" class="cell-input" placeholder="Min" value="" style="display: block;">
+                        </div>
+                        <div class="grid-cell">
+                            <span class="cell-text" style="display: none;"></span>
+                            <input type="number" class="cell-input" placeholder="Max" value="" style="display: block;">
+                        </div>
+                        <div class="grid-cell">
+                            <span class="cell-text" style="display: none;"></span>
+                            <input type="date" class="cell-input" placeholder="Arrival Date" value="" style="display: block;">
+                        </div>
+                        <div class="grid-cell">
+                            <span class="cell-text" style="display: none;"></span>
+                            <input type="date" class="cell-input" placeholder="Expiry Date" value="" style="display: block;">
+                        </div>
+                        <div class="grid-cell">
+                            <span class="cell-text" style="display: none;"></span>
+                            <input type="text" class="cell-input" placeholder="Enter price" value="" style="display: block;">
+                        </div>
+                        <div class="grid-cell">
+                            <span class="cell-text" style="display: none;"></span>
+                            <select class="unit-select cell-input" style="display: block;">
+                                <option value="">Select Unit</option>
+                                <option value="PIECE">Piece</option>
+                                <option value="KG">Kilogram</option>
+                                <option value="L">Liter</option>
+                                <option value="BOX">Box</option>
+                                <option value="CASE">Case</option>
+                                <option value="PACK">Pack</option>
+                                <option value="BOTTLE">Bottle</option>
+                                <option value="CARTON">Carton</option>
+                            </select>
+                        </div>
+                        <div class="grid-cell quantity-cell">
+                            <span class="cell-text" style="display: none;">0</span>
+                            <input type="number" class="cell-input" placeholder="Quantity" value="0" style="display: block;">
+                        </div>
+                    `;
+
+                // Insert before the last row (or at the end if no rows exist)
+                const existingRows = productsGrid.querySelectorAll('.grid-row');
+                if (existingRows.length > 0) {
+                    productsGrid.insertBefore(newRow, existingRows[existingRows.length - 1].nextSibling);
+                } else {
+                    productsGrid.appendChild(newRow);
+                }
+
+                // Auto-select the new row
+                document.getElementById(rowId).checked = true;
+
+                // Change Add button to Save
+                addBtn.textContent = 'Save';
+                addBtn.classList.add('save-btn');
+
+                // Hide Edit and Delete buttons when adding a new product
+                if (editBtn) {
+                    editBtn.style.display = 'none';
+                }
+                if (deleteBtn) {
+                    deleteBtn.style.display = 'none';
+                }
+
+                // Reset edit mode if active
+                if (editMode) {
+                    editMode = false;
+                    editBtn.textContent = 'Edit';
+                    editBtn.classList.remove('save-btn');
+                }
+            });
+        }
+
+        // Function to save a new row
+        function saveNewRow(row, radio) {
+            // Get all cells (skip row-number which is at index 0)
+            const cells = row.querySelectorAll('.grid-cell');
+
+            // Collect all field values by accessing each cell
+            const nameInput = cells[1] ? cells[1].querySelector('.cell-input[type="text"]') : null;
+            const name = nameInput ? nameInput.value.trim() : '';
+
+            const brandInput = cells[2] ? cells[2].querySelector('.cell-input[type="text"]') : null;
+            const brand = brandInput ? brandInput.value.trim() : '';
+
+            const categorySelect = cells[3] ? cells[3].querySelector('.category-select') : null;
+            const category = categorySelect ? categorySelect.value : '';
+
+            const minThresholdInput = cells[4] ? cells[4].querySelector('.cell-input[type="number"]') : null;
+            const minThreshold = minThresholdInput ? minThresholdInput.value.trim() : '';
+
+            const maxThresholdInput = cells[5] ? cells[5].querySelector('.cell-input[type="number"]') : null;
+            const maxThreshold = maxThresholdInput ? maxThresholdInput.value.trim() : '';
+
+            const arrivalDateInput = cells[6] ? cells[6].querySelector('.cell-input[type="date"]') : null;
+            const arrivalDate = arrivalDateInput ? arrivalDateInput.value : '';
+
+            const expiryDateInput = cells[7] ? cells[7].querySelector('.cell-input[type="date"]') : null;
+            const expiryDate = expiryDateInput ? expiryDateInput.value : '';
+
+            const priceInput = cells[8] ? cells[8].querySelector('.cell-input[type="text"]') : null;
+            const price = priceInput ? priceInput.value.trim() : '';
+
+            const unitSelect = cells[9] ? cells[9].querySelector('.unit-select') : null;
+            const unit = unitSelect ? unitSelect.value : '';
+
+            const quantityInput = cells[10] ? cells[10].querySelector('.cell-input[type="number"]') : null;
+            const quantity = quantityInput ? quantityInput.value.trim() : '0';
+
+            // Validate required fields
+            if (!name || !brand || !category || !price || !unit) {
+                alert('Please fill in all required fields (Name, Brand, Category, Price, Unit)');
+                return;
+            }
+
+            // Here you would normally send the data to the server
+            console.log('Saving new product:', {
+                name, brand, category, minThreshold, maxThreshold, arrivalDate, expiryDate, price, unit, quantity
+            });
+
+            // Convert new row to saved row format
+            row.classList.remove('new-row');
+
+            // Reset Add button back to "Add"
+            if (addBtn) {
+                addBtn.textContent = 'Add';
+                addBtn.classList.remove('save-btn');
+            }
+
+            // Show Edit and Delete buttons again after saving
+            if (editBtn) {
+                editBtn.style.display = '';
+            }
+            if (deleteBtn) {
+                deleteBtn.style.display = '';
+            }
+
+            // Reset edit button if needed
+            editBtn.textContent = 'Edit';
+            editBtn.classList.remove('save-btn');
+            editMode = false;
+            currentNewRow = null; // Clear the current new row reference
+
+            // Update name
+            if (cells[1]) {
+                const textSpan = cells[1].querySelector('.cell-text');
+                if (textSpan) {
+                    textSpan.textContent = name;
+                    textSpan.style.display = 'inline';
+                }
+                if (nameInput) nameInput.style.display = 'none';
+            }
+
+            // Update brand
+            if (cells[2]) {
+                const textSpan = cells[2].querySelector('.cell-text');
+                if (textSpan) {
+                    textSpan.textContent = brand;
+                    textSpan.style.display = 'inline';
+                }
+                if (brandInput) brandInput.style.display = 'none';
+            }
+
+            // Update category
+            if (cells[3] && categorySelect) {
+                const textSpan = cells[3].querySelector('.cell-text');
+                if (textSpan) {
+                    const selectedOption = categorySelect.options[categorySelect.selectedIndex];
+                    textSpan.textContent = selectedOption ? selectedOption.text : category;
+                    textSpan.style.display = 'inline';
+                }
+                categorySelect.style.display = 'none';
+            }
+
+            // Update min threshold
+            if (cells[4] && minThresholdInput) {
+                const textSpan = cells[4].querySelector('.cell-text');
+                if (textSpan) {
+                    textSpan.textContent = minThreshold || '0';
+                    textSpan.style.display = 'inline';
+                }
+                minThresholdInput.style.display = 'none';
+            }
+
+            // Update max threshold
+            if (cells[5] && maxThresholdInput) {
+                const textSpan = cells[5].querySelector('.cell-text');
+                if (textSpan) {
+                    textSpan.textContent = maxThreshold || '0';
+                    textSpan.style.display = 'inline';
+                }
+                maxThresholdInput.style.display = 'none';
+            }
+
+            // Update arrival date
+            if (cells[6] && arrivalDateInput) {
+                const textSpan = cells[6].querySelector('.cell-text');
+                if (textSpan) {
+                    textSpan.textContent = arrivalDate || '-';
+                    textSpan.style.display = 'inline';
+                }
+                arrivalDateInput.style.display = 'none';
+            }
+
+            // Update expiry date
+            if (cells[7] && expiryDateInput) {
+                const textSpan = cells[7].querySelector('.cell-text');
+                if (textSpan) {
+                    textSpan.textContent = expiryDate || '-';
+                    textSpan.style.display = 'inline';
+                }
+                expiryDateInput.style.display = 'none';
+            }
+
+            // Update price
+            if (cells[8] && priceInput) {
+                const textSpan = cells[8].querySelector('.cell-text');
+                if (textSpan) {
+                    textSpan.textContent = price;
+                    textSpan.style.display = 'inline';
+                }
+                priceInput.style.display = 'none';
+            }
+
+            // Update unit
+            if (cells[9] && unitSelect) {
+                const textSpan = cells[9].querySelector('.cell-text');
+                if (textSpan) {
+                    const selectedOption = unitSelect.options[unitSelect.selectedIndex];
+                    textSpan.textContent = selectedOption ? selectedOption.text : unit;
+                    textSpan.style.display = 'inline';
+                }
+                unitSelect.style.display = 'none';
+            }
+
+            // Update quantity
+            if (cells[10] && quantityInput) {
+                const textSpan = cells[10].querySelector('.cell-text');
+                if (textSpan) {
+                    textSpan.textContent = quantity || '0';
+                    textSpan.style.display = 'inline';
+                }
+                quantityInput.style.display = 'none';
+            }
+
+            alert('Product saved successfully!');
+
+            // In a real implementation, you would submit this data to the server here
+            // Example:
+            // fetch('/products/save', {
+            //     method: 'POST',
+            //     headers: {'Content-Type': 'application/json'},
+            //     body: JSON.stringify({name, brand, category, minThreshold, maxThreshold, arrivalDate, expiryDate, price, unit, quantity})
+            // });
+        }
+    });
+</script>
+<footer class="copyright">
+    <p>© 2025 inventorize. All rights reserved.</p>
+</footer>
+</body>
+</html>
+

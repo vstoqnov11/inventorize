@@ -36,7 +36,7 @@ public class BusinessController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
-    public ModelAndView getBusinessesPage(@RequestParam(defaultValue = "1") int page) {
+    public ModelAndView getBusinessesPage(@RequestParam(defaultValue = "1") int page, @AuthenticationPrincipal UserData userData) {
 
         Page<Business> businessPage = businessService.getAllBusinesses(page - 1);
 
@@ -44,6 +44,8 @@ public class BusinessController {
         page = PaginationUtils.clampPage(page, totalPages);
 
         ModelAndView mav = new ModelAndView("businesses");
+        mav.addObject("user", userService.getById(userData.getId()));
+        mav.addObject("business", userData.getBusiness());
         mav.addObject("businesses", businessPage.getContent());
         mav.addObject("page", page);
         mav.addObject("totalPages", totalPages);
@@ -55,10 +57,12 @@ public class BusinessController {
     @GetMapping("/{id}/products")
     public ModelAndView getBusinessPage(@AuthenticationPrincipal UserData userData, @PathVariable UUID id) {
 
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("products");
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("products");
+        mav.addObject("user", userService.getById(userData.getId()));
+        mav.addObject("business", businessService.getById(id));
 
-        return modelAndView;
+        return mav;
     }
 
     @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
@@ -123,6 +127,7 @@ public class BusinessController {
 
         ModelAndView mav = new ModelAndView("employees");
         mav.addObject("user", userService.getById(userData.getId()));
+        mav.addObject("business", userData.getBusiness());
         mav.addObject("employees", businessPage.getContent());
         mav.addObject("page", page);
         mav.addObject("totalPages", totalPages);

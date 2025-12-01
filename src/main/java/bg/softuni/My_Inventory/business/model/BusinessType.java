@@ -1,7 +1,5 @@
 package bg.softuni.My_Inventory.business.model;
 
-import bg.softuni.My_Inventory.product.model.ProductCategory;
-
 public enum BusinessType {
 
     RESTAURANT("Restaurant"),
