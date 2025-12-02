@@ -9,6 +9,7 @@ import bg.softuni.Inventorize.web.dto.EditProfileRequest;
 import bg.softuni.Inventorize.web.dto.NewEmployeeRequest;
 import bg.softuni.Inventorize.web.dto.RegisterRequest;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +24,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
@@ -129,5 +131,10 @@ public class UserService implements UserDetailsService {
                 .build();
 
         userRepository.save(user);
+    }
+
+    public void delete (UUID employeeId) {
+
+        userRepository.deleteById(employeeId);
     }
 }

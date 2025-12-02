@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>bg.softuni</groupId>
-	<artifactId>My-Inventory</artifactId>
+	<artifactId>Inventorize</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>My-Inventory</name>
+	<name>Inventorize</name>
 	<description>Softuni-defence-project</description>
 	<url/>
 	<licenses>

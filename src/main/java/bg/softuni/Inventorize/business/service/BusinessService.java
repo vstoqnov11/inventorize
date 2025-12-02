@@ -2,12 +2,11 @@ package bg.softuni.Inventorize.business.service;
 
 import bg.softuni.Inventorize.business.model.Business;
 import bg.softuni.Inventorize.business.repository.BusinessRepository;
-import bg.softuni.Inventorize.product.model.Product;
-import bg.softuni.Inventorize.product.service.ProductService;
 import bg.softuni.Inventorize.user.service.UserService;
 import bg.softuni.Inventorize.web.dto.EditBusinessRequest;
 import bg.softuni.Inventorize.web.dto.NewBusinessRequest;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,22 +14,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
-
+@Slf4j
 @Service
 public class BusinessService {
 
     private final BusinessRepository businessRepository;
     private final UserService userService;
-    private final ProductService productService;
 
     @Autowired
-    public BusinessService (BusinessRepository businessRepository, UserService userService, ProductService productService) {
+    public BusinessService (BusinessRepository businessRepository, UserService userService) {
         this.businessRepository = businessRepository;
         this.userService = userService;
-        this.productService = productService;
     }
 
     @Transactional
@@ -73,7 +69,8 @@ public class BusinessService {
         return businessRepository.findById(id).orElseThrow(() -> new RuntimeException("Business with id %s not found".formatted(id)));
     }
 
-//    public List<Product> getAllProducts (UUID id) {
-//        return productService;
-//    }
+    public void save (Business business) {
+        businessRepository.save(business);
+    }
+
 }

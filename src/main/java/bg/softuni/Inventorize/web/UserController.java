@@ -102,6 +102,6 @@ public class UserController {
 
         userService.createEmployee(newEmployeeRequest, userData.getBusiness());
 
-        return new ModelAndView(String.format("redirect:/businesses/%s/employees", userData.getBusiness().getId()));
+        return new ModelAndView("redirect:/businesses/" + userData.getBusiness().getId() + "/employees");
     }
 }

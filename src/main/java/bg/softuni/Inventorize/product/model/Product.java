@@ -4,7 +4,7 @@ import bg.softuni.Inventorize.business.model.Business;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Builder
@@ -44,10 +44,13 @@ public class Product {
     private ProductUnit unit;
 
     @Column
-    private LocalDateTime arrivalDate;
+    private double price;
 
     @Column
-    private LocalDateTime expiryDate;
+    private LocalDate arrivalDate;
+
+    @Column
+    private LocalDate expiryDate;
 
     @ManyToOne
     @JoinColumn(name = "business_id")

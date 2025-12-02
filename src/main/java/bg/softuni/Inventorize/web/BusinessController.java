@@ -124,4 +124,13 @@ public class BusinessController {
 
         return mav;
     }
+
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
+    @DeleteMapping("/{businessId}/employees/{employeeId}")
+    public ModelAndView deleteEmployee(@PathVariable UUID businessId, @PathVariable UUID employeeId) {
+
+        userService.delete(employeeId);
+
+        return new ModelAndView("redirect:/businesses/" + businessId + "/employees");
+    }
 }

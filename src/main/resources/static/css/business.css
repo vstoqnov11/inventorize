@@ -224,7 +224,7 @@
     text-align: center;
 }
 
-.row-number::before {
+.row-number {
     content: counter(row-number);
 }
 
