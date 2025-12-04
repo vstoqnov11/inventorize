@@ -1,0 +1,54 @@
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.error-card {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.error-card h2.error-title {
+    font-size: 1.5rem;
+}
+
+.error-card p.error-message {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 15px 0;
+}
+
+.error-card p.error-details {
+    font-size: 0.8rem;
+    color: #999;
+    margin: 10px 0;
+}
+
+.error-card h2.error-subtitle {
+    font-size: 1.3rem;
+    margin-top: 25px;
+}
+
+.error-card p.error-description {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 15px 0;
+    line-height: 1.5;
+}
+
+.error-card .error-button {
+    display: inline-block;
+    margin-top: 20px;
+}
+

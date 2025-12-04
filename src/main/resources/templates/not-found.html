@@ -5,6 +5,7 @@
     <title>Not Found - inventorize</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/error.css">
 </head>
 <body>
 <div class="top-bar">
@@ -19,10 +20,12 @@
     </div>
 </div>
 <div class="form-container">
-    <div class="form-card" style="text-align: center;">
-        <h2>404 - Not Found</h2>
-        <p style="font-size: 1.1rem; color: #666; margin: 20px 0;" th:text="${errorMessage}">The requested resource was not found.</p>
-        <a href="/home" class="button" style="display: inline-block; margin-top: 20px;">Go to Home</a>
+    <div class="form-card error-card">
+        <h2 class="error-title">404 - Not Found</h2>
+        <p class="error-message" th:text="${errorMessage}">The requested resource was not found.</p>
+        <h2 class="error-subtitle">Oops! We couldn't find that.</h2>
+        <p class="error-description">If you need any further assistance with your query, please don't hesitate to reach out to our support team. We're here to help!</p>
+        <a href="/home" class="button error-button">Go to Home</a>
     </div>
 </div>
 <footer class="copyright">
