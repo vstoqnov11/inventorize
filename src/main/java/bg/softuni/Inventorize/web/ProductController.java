@@ -31,51 +31,40 @@ public class ProductController {
     }
 
     @GetMapping
-    public ModelAndView getProductsPage (@AuthenticationPrincipal UserData userData, @PathVariable UUID businessId) {
-
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("products");
+    public ModelAndView getProductsPage(@AuthenticationPrincipal UserData userData, @PathVariable UUID businessId) {
+        ModelAndView mav = new ModelAndView("products");
         mav.addObject("user", userService.getById(userData.getId()));
         mav.addObject("business", businessService.getById(businessId));
         mav.addObject("upsertProductRequest", new UpsertProductRequest());
         mav.addObject("products", productService.getAllProducts(businessId));
-
         return mav;
     }
 
     @PostMapping("/new")
     public ModelAndView addNewProduct(@Valid @ModelAttribute("upsertProductRequest") UpsertProductRequest upsertProductRequest, BindingResult bindingResult, @PathVariable UUID businessId) {
-
         if (bindingResult.hasErrors()) {
             ModelAndView mav = new ModelAndView("products");
             mav.addObject("upsertProductRequest", upsertProductRequest);
             return mav;
         }
-
         productService.create(upsertProductRequest, businessId);
-
-         return new ModelAndView("redirect:/businesses/" + businessId + "/products");
+        return new ModelAndView("redirect:/businesses/" + businessId + "/products");
     }
 
     @PutMapping("/{productId}/edit")
     public ModelAndView editProduct(@Valid @ModelAttribute("upsertProductRequest") UpsertProductRequest upsertProductRequest, BindingResult bindingResult, @PathVariable UUID businessId, @PathVariable UUID productId) {
-
         if (bindingResult.hasErrors()) {
             ModelAndView mav = new ModelAndView("products");
             mav.addObject("upsertProductRequest", upsertProductRequest);
             return mav;
         }
-
         productService.edit(upsertProductRequest, businessId, productId);
-
         return new ModelAndView("redirect:/businesses/" + businessId + "/products");
     }
 
     @DeleteMapping("/{productId}/delete")
     public ModelAndView deleteProduct(@PathVariable UUID businessId, @PathVariable UUID productId) {
-
         productService.delete(productId);
-
         return new ModelAndView("redirect:/businesses/" + businessId + "/products");
     }
 }

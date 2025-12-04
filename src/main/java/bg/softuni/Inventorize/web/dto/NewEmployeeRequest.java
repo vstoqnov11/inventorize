@@ -22,15 +22,15 @@ public class NewEmployeeRequest {
     @NotBlank
     private String password;
 
-    @Size(min = 3, max = 20, message = "First name should be between 3 and 3 characters")
+    @Size(min = 3, max = 20, message = "First name should be between 3 and 20 characters")
     @NotBlank
     private String firstName;
 
-    @Size(min = 3, max = 20, message = "Last name should be between 3 and 3 characters")
+    @Size(min = 3, max = 20, message = "Last name should be between 3 and 20 characters")
     @NotBlank
     private String lastName;
 
-    @Email(message = "Incorrect email address")
+    @Email
     @NotBlank
     private String email;
 

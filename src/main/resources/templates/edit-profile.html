@@ -58,29 +58,29 @@
                 <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
                 <input type="hidden" name="_method" value="PUT">
                 <h2>Edit Profile</h2>
-
                 <div class="form-group">
                     <label for="firstName">First Name</label>
                     <input th:field="*{firstName}" type="text" id="firstName" required placeholder="Enter first name">
-                    <p class="alert-warning" th:if="${#fields.hasErrors('firstName')}">Invalid First Name</p>
+                    <p class="alert-warning" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Invalid First Name</p>
                 </div>
 
                 <div class="form-group">
                     <label for="lastName">Last Name</label>
                     <input th:field="*{lastName}" type="text" id="lastName" required placeholder="Enter last name">
-                    <p class="alert-warning" th:if="${#fields.hasErrors('lastName')}">Invalid Last Name</p>
+                    <p class="alert-warning" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Invalid Last Name</p>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input th:field="*{email}" type="email" id="email" required placeholder="Enter email">
-                    <p class="alert-warning" th:if="${#fields.hasErrors('email')}">Invalid Email</p>
+                    <p class="alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Invalid Email</p>
+                    <p class="alert-warning" th:if="${emailError}" th:text="${emailError}">Error message</p>
                 </div>
 
                 <div class="form-group">
                     <label for="phoneNumber">Phone Number</label>
                     <input th:field="*{phoneNumber}" type="tel" id="phoneNumber" required placeholder="Enter phone number">
-                    <p class="alert-warning" th:if="${#fields.hasErrors('phoneNumber')}">Invalid Phone Number</p>
+                    <p class="alert-warning" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Invalid Phone Number</p>
                 </div>
 
                 <button type="submit" class="submit-btn button">Save</button>

@@ -26,7 +26,7 @@ public class RegisterRequest {
     @NotBlank
     private String firstName;
 
-    @Size(min = 3, max = 20, message = "Last name should be between 3 and 3 characters")
+    @Size(min = 3, max = 20, message = "Last name should be between 3 and 20 characters")
     @NotBlank
     private String lastName;
 

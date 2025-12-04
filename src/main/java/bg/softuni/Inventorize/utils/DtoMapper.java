@@ -10,7 +10,6 @@ import lombok.experimental.UtilityClass;
 public class DtoMapper {
 
     public static EditProfileRequest fromUser(User user) {
-
         return EditProfileRequest.builder()
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
@@ -20,7 +19,6 @@ public class DtoMapper {
     }
 
     public static EditBusinessRequest fromBusiness(Business business) {
-
         return EditBusinessRequest.builder()
                 .address(business.getAddress())
                 .email(business.getEmail())

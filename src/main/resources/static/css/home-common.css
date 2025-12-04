@@ -55,7 +55,7 @@ body.homepage-body .top-bar .btn-group {
 .business-info-card {
     background: #fff;
     border-radius: 12px;
-    padding: 60px 50px;
+    padding: 30px 40px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     text-align: center;
     border: 1px solid #f0f0f0;
@@ -68,14 +68,14 @@ body.homepage-body .top-bar .btn-group {
 .business-name {
     color: #3d3b4f;
     font-size: 2rem;
-    margin: 0 0 12px 0;
+    margin: 0 0 8px 0;
     font-weight: 600;
     width: 100%;
 }
 .business-type {
     color: #337ecc;
     font-size: 1.1rem;
-    margin: 0 0 40px 0;
+    margin: 0 0 20px 0;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -84,12 +84,12 @@ body.homepage-body .top-bar .btn-group {
 .business-details {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     text-align: left;
     background: #f8f9fa;
-    padding: 30px;
+    padding: 20px;
     border-radius: 8px;
-    margin: 20px 0;
+    margin: 0 0 10px 0;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
@@ -98,7 +98,7 @@ body.homepage-body .top-bar .btn-group {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 20px;
+    padding: 10px 16px;
     background: #fff;
     border-radius: 6px;
     border: 1px solid #e9ecef;
@@ -118,7 +118,7 @@ body.homepage-body .top-bar .btn-group {
     font-size: 1rem;
 }
 .edit-button-container {
-    margin-top: 50px;
+    margin-top: 20px;
     text-align: center;
     width: 100%;
 }
@@ -284,5 +284,78 @@ body.homepage-body .top-bar .btn-group {
     color: #3d3b4f;
     font-weight: 600;
     font-size: 1rem;
+}
+.service-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 0 0 20px 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+.service-setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 8px 16px;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+    transition: box-shadow 0.2s;
+}
+.service-setting-item form {
+    display: flex;
+    justify-content: flex-end;
+}
+.service-setting-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.service-label {
+    color: #666;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-align: left;
+}
+.service-control {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.service-setting-item form {
+    display: inline-block;
+}
+.service-status {
+    color: #3d3b4f;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-align: left;
+}
+.toggle-button {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.toggle-button.enabled {
+    background-color: #dc3545;
+    color: white;
+}
+.toggle-button.enabled:hover {
+    background-color: #c82333;
+}
+.toggle-button.disabled {
+    background-color: #28a745;
+    color: white;
+}
+.toggle-button.disabled:hover {
+    background-color: #218838;
 }
 

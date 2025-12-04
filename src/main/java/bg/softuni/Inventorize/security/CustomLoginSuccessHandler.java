@@ -23,9 +23,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-
         String username = authentication.getName();
-
         boolean hasBusiness = userService.userHasBusiness(username);
 
         if (hasBusiness) {

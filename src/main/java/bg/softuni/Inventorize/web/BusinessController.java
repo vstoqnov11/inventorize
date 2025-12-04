@@ -65,8 +65,7 @@ public class BusinessController {
 
     @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
     @GetMapping("/{id}/edit")
-    public ModelAndView getEditPage(@AuthenticationPrincipal UserData userData, @PathVariable UUID id) {
-
+    public ModelAndView getEditPage(@PathVariable UUID id) {
         ModelAndView mav = new ModelAndView("edit-business");
         mav.addObject("editBusinessRequest", DtoMapper.fromBusiness(businessService.getById(id)));
         mav.addObject("business", businessService.getById(id));
@@ -79,7 +78,8 @@ public class BusinessController {
 
         if (bindingResult.hasErrors()) {
             ModelAndView mav = new ModelAndView("new-business");
-            mav.addObject("businessFormDto", newBusinessRequest);
+            mav.addObject("newBusinessRequest", newBusinessRequest);
+            mav.addObject("hasBusiness", userService.userHasBusiness(userData.getUsername()));
             return mav;
         }
 
@@ -89,12 +89,11 @@ public class BusinessController {
     }
 
     @PutMapping("/{id}/edit")
-    public ModelAndView editBusiness(@Valid EditBusinessRequest editBusinessRequest, BindingResult bindingResult, @AuthenticationPrincipal UserData userData, @PathVariable UUID id) {
-
+    public ModelAndView editBusiness(@Valid EditBusinessRequest editBusinessRequest, BindingResult bindingResult, @PathVariable UUID id) {
         if (bindingResult.hasErrors()) {
             Business business = businessService.getById(id);
             ModelAndView mav = new ModelAndView("edit-business");
-            mav.addObject("businessFormDto", editBusinessRequest);
+            mav.addObject("editBusinessRequest", editBusinessRequest);
             mav.addObject("business", business);
 
             return mav;
@@ -132,5 +131,19 @@ public class BusinessController {
         userService.delete(employeeId);
 
         return new ModelAndView("redirect:/businesses/" + businessId + "/employees");
+    }
+
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
+    @PostMapping("/{id}/toggle-notifications")
+    public ModelAndView toggleNotifications(@PathVariable UUID id) {
+        businessService.toggleNotifications(id);
+        return new ModelAndView("redirect:/home");
+    }
+
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
+    @PostMapping("/{id}/toggle-restock")
+    public ModelAndView toggleRestock(@PathVariable UUID id) {
+        businessService.toggleRestock(id);
+        return new ModelAndView("redirect:/home");
     }
 }

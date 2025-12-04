@@ -26,10 +26,10 @@ public class NewBusinessRequest {
     @Size(min = 5, max = 50, message = "address should be between 5 and 50 characters")
     private String address;
 
-    @Size(min = 10, max = 10, message = "Name should be 10 characters")
+    @Size(min = 10, max = 10, message = "Phone number should be 10 characters")
     private String phoneNumber;
 
-    @Email(message = "Incorrect email address")
+    @Email
     @NotBlank
     private String email;
 }

@@ -1,6 +1,8 @@
 package bg.softuni.Inventorize.user.service;
 
 import bg.softuni.Inventorize.business.model.Business;
+import bg.softuni.Inventorize.exception.UserNotFoundException;
+import bg.softuni.Inventorize.exception.UsernameAlreadyTakenException;
 import bg.softuni.Inventorize.security.UserData;
 import bg.softuni.Inventorize.user.model.User;
 import bg.softuni.Inventorize.user.model.UserRole;
@@ -27,21 +29,22 @@ import java.util.UUID;
 @Slf4j
 @Service
 public class UserService implements UserDetailsService {
-    private final UserRepository userRepository;
 
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public UserService (UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void register (@Valid RegisterRequest registerRequest) {
-
+    public void register(@Valid RegisterRequest registerRequest) {
         Optional<User> userOpt = userRepository.findByUsername(registerRequest.getUsername());
 
         if (userOpt.isPresent()) {
-            throw new RuntimeException("Username already taken");
+            log.error("Registration failed - Username {} already taken", registerRequest.getUsername());
+            throw new UsernameAlreadyTakenException("Username already taken");
         }
 
         User user = User.builder()
@@ -56,67 +59,67 @@ public class UserService implements UserDetailsService {
                 .build();
 
         userRepository.save(user);
+        log.info("User registered with username: {} and role: {}", user.getUsername(), user.getRole());
     }
 
     @Override
-    public UserDetails loadUserByUsername (String username) throws UsernameNotFoundException {
-
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username));
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> {
+            log.error("Failed to load user: User not found for username: {}", username);
+            return new UsernameNotFoundException(username);
+        });
 
         return new UserData(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), user.getRole(), user.getBusiness());
     }
 
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User with username: %s not found".formatted(username)));
+        return userRepository.findByUsername(username).orElseThrow(() -> {
+            log.error("User not found with username: {}", username);
+            return new UserNotFoundException("User with username: %s not found".formatted(username));
+        });
     }
 
-    public boolean userHasBusiness (String username) {
-
+    public boolean userHasBusiness(String username) {
         User user = findByUsername(username);
-
         return user.getBusiness() != null;
     }
 
-    public void addBusiness (Business business, String username) {
-
+    public void addBusiness(Business business, String username) {
         User user = findByUsername(username);
-
         user.setBusiness(business);
-
         userRepository.save(user);
+        log.info("Business {} added to user: {}", business.getName(), username);
     }
 
     public Page<User> getAllUsers(int page) {
-
         Pageable pageable = PageRequest.of(page, 10);
         return userRepository.findAll(pageable);
     }
 
-    public User getById (UUID id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User with id: %s not found".formatted(id)));
+    public User getById(UUID id) {
+        return userRepository.findById(id).orElseThrow(() -> {
+            log.error("User not found with id: {}", id);
+            return new UserNotFoundException("User with id: %s not found".formatted(id));
+        });
     }
 
-    public void updateProfile (EditProfileRequest editProfileRequest, UUID id) {
-
+    public void updateProfile(EditProfileRequest editProfileRequest, UUID id) {
         User user = getById(id);
-
         user.setFirstName(editProfileRequest.getFirstName());
         user.setLastName(editProfileRequest.getLastName());
         user.setEmail(editProfileRequest.getEmail());
         user.setPhoneNumber(editProfileRequest.getPhoneNumber());
         user.setUpdatedOn(LocalDateTime.now());
-
         userRepository.save(user);
+        log.info("Profile updated for user id: {}", id);
     }
 
-    public Page<User> getAllEmployees (int page, UUID id) {
-
+    public Page<User> getAllEmployees(int page, UUID id) {
         Pageable pageable = PageRequest.of(page, 10);
         return userRepository.findAllByBusinessId(id, pageable);
     }
 
-    public void createEmployee (NewEmployeeRequest newEmployeeRequest, Business business) {
-
+    public void createEmployee(NewEmployeeRequest newEmployeeRequest, Business business) {
         User user = User.builder()
                 .username(newEmployeeRequest.getUsername())
                 .password(passwordEncoder.encode(newEmployeeRequest.getPassword()))
@@ -131,10 +134,11 @@ public class UserService implements UserDetailsService {
                 .build();
 
         userRepository.save(user);
+        log.info("Employee created with username: {} and id: {}", user.getUsername(), user.getId());
     }
 
-    public void delete (UUID employeeId) {
-
+    public void delete(UUID employeeId) {
         userRepository.deleteById(employeeId);
+        log.info("Employee deleted with id: {}", employeeId);
     }
 }

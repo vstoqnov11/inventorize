@@ -50,6 +50,12 @@ public class Business {
     @Column
     private LocalDateTime updatedOn;
 
+    @Column
+    private Boolean notificationsEnabled;
+
+    @Column
+    private Boolean restockEnabled;
+
     @OneToMany(mappedBy = "business")
     private List<User> employees;
 

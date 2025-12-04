@@ -73,6 +73,28 @@
                         <span class="detail-value" th:text="*{#temporals.format(updatedOn, 'dd MMM YYYY')}">Jan 01, 2025</span>
                     </div>
                 </div>
+                <div class="service-settings" sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')">
+                    <div class="service-setting-item">
+                        <span class="service-label">Notifications Service:</span>
+                        <div class="service-control">
+                            <form th:action="@{'/businesses/' + ${business.id} + '/toggle-notifications'}" method="post">
+                                <button type="submit" class="toggle-button" th:classappend="${business.notificationsEnabled ? 'enabled' : 'disabled'}">
+                                    <span th:text="${business.notificationsEnabled ? 'Disable' : 'Enable'}">Toggle</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="service-setting-item">
+                        <span class="service-label">Restock Service:</span>
+                        <div class="service-control">
+                            <form th:action="@{'/businesses/' + ${business.id} + '/toggle-restock'}" method="post">
+                                <button type="submit" class="toggle-button" th:classappend="${business.restockEnabled ? 'enabled' : 'disabled'}">
+                                    <span th:text="${business.restockEnabled ? 'Disable' : 'Enable'}">Toggle</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 <div class="edit-button-container" sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')">
                     <a th:href="@{'/businesses/' + ${business.id} + '/edit'}" class="button edit-button">Edit</a>
             </div>

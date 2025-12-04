@@ -9,7 +9,6 @@ import java.util.stream.IntStream;
 public class PaginationUtils {
 
     public int clampPage(int requestPage, int totalPage) {
-
         if (requestPage < 1) {
             return 1;
         }
@@ -19,8 +18,7 @@ public class PaginationUtils {
         return requestPage;
     }
 
-    public List<Integer> pageSequence (int totalPages) {
-
+    public List<Integer> pageSequence(int totalPages) {
         return IntStream.rangeClosed(1, totalPages).boxed().toList();
     }
 }

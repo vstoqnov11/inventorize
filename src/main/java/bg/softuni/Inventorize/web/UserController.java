@@ -72,6 +72,8 @@ public class UserController {
             User user = userService.getById(id);
             ModelAndView mav = new ModelAndView("edit-profile");
             mav.addObject("user", user);
+            mav.addObject("business", user.getBusiness());
+            mav.addObject("editRequest", editProfileRequest);
             return mav;
         }
 
@@ -97,6 +99,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             ModelAndView mav = new ModelAndView("new-employee");
             mav.addObject("newEmployeeRequest", newEmployeeRequest);
+            mav.addObject("user", userService.getById(userData.getId()));
             return mav;
         }
 

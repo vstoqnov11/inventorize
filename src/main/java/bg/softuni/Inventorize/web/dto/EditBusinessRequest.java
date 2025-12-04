@@ -13,10 +13,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EditBusinessRequest {
 
-    @Size(min = 5, max = 50)
+    @Size(min = 5, max = 50, message = "Address should be between 5 and 50 characters long")
     private String address;
 
-    @Size(min = 10, max = 14)
+    @Size(min = 10, max = 10, message = "Phone number must be 10 digits")
     private String phoneNumber;
 
     @Email

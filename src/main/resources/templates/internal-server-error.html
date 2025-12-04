@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Internal Server Error - inventorize</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+</head>
+<body>
+<div class="top-bar">
+    <h1 class="logo">
+        <a href="/" class="logo-link">
+            <img src="/images/only-logo.png" alt="Inventorize Logo" class="logo-icon">
+            <span class="logo-text">inventorize</span>
+        </a>
+    </h1>
+    <div class="btn-group">
+        <a href="/home" class="button">Home</a>
+    </div>
+</div>
+<div class="form-container">
+    <div class="form-card" style="text-align: center;">
+        <h2>500 - Internal Server Error</h2>
+        <p style="font-size: 1.1rem; color: #666; margin: 20px 0;">An unexpected error occurred.</p>
+        <p style="font-size: 0.9rem; color: #999; margin: 10px 0;" th:text="'Error: ' + ${errorMessage}">Error details</p>
+        <a href="/home" class="button" style="display: inline-block; margin-top: 20px;">Go to Home</a>
+    </div>
+</div>
+<footer class="copyright">
+    <p>© 2025 inventorize. All rights reserved.</p>
+</footer>
+</body>
+</html>
+
